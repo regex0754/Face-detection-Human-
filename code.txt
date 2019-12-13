@@ -1,0 +1,28 @@
+import cv2
+
+try:
+
+    img=cv2.imread("C:/Users/RUSHIL/Desktop/jl.jpg")
+    gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    #path to the saved .xml file in your system for face_detection
+    face_cascade=cv2.CascadeClassifier("C:/Users/RUSHIL/Desktop/OpenCV/xml files for classification/haarcascade_frontface.xml")
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.05, minNeighbors=5)
+    xyz=img
+    for x,y,w,h in faces:
+        xyz=cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),3)
+
+    a=xyz.shape[1]
+    a=int(a/5)
+    b=xyz.shape[0]
+    b=int(b/5)
+
+    dim=(a,b)
+
+    resized=cv2.resize(xyz,dim,interpolation=cv2.INTER_AREA)
+    #cv2.resize(win)
+    cv2.imshow('win',resized)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+except IOError:
+    pass
